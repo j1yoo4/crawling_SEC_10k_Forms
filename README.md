@@ -1,8 +1,8 @@
 ## crawling_SEC_10k_Forms
-R script for crawling all the 10-k forms available on the web (EDGAR website)__
+R script for crawling all the 10-k forms available on the web (EDGAR website) <br />
 
 ### Terminal and tmux:
-ssh <account_ID>@<Server_IP_Address> ## Connect to a server__
+ssh <account_ID>@<Server_IP_Address> ## Connect to a server <br />
 tmux attach -t <Session Number>  ## Attach a tmux session__
 R  # Access R__
 
