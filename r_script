@@ -58,7 +58,8 @@ k = 1
 tenkVEC <- NULL
 time = Sys.time()
 for(k in 1:length(cikVEC)){
-  TenKs <- html_session(paste0("https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=", cikVEC[k],"&type=10-k&dateb=&owner=exclude&count=100"))
+  TenKs <- html_session(paste0("https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=", 
+                                cikVEC[k], "&type=10-k&dateb=&owner=exclude&count=100"))
   tenk <- NULL
   try(tenk <- TenKs %>% 
     follow_link("Documents") %>% 
