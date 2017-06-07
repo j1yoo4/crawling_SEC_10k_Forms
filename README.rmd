@@ -7,6 +7,7 @@ tmux attach -t <Session Number>  ## Attach a tmux session
 R  # Access R
 
 ### R Session:
+```{r}
 load("./170607_SEC_Crawling.RData")
 if(!require(devtools)) install.packages("devtools")
 if(!require(data.table)) install.packages("data.table")
@@ -16,8 +17,10 @@ if(!require(rvest)) install.packages("rvest")
 install_github("JasperHG90/TenK")
 require(TenK)
 require(stringi)
+```
 
 ## Collect all SIC codes
+```{r}
 sicLIST <- read_html("https://www.sec.gov/info/edgar/siccodes.htm")
 SICs <- sicLIST %>%
   html_nodes("td") %>%
@@ -26,9 +29,11 @@ SICs <- SICs[19:length(SICs)]
 SICs <- SICs[!SICs %in% c("", " ")]
 SICs <- matrix(SICs, ncol = 4, byrow = T)
 SICs <- SICs[-nrow(SICs),] ## SIC Table
-SICs <- SICs[-1,1]## Removing all but the SIC codes
+SICs <- SICs[-1,1] ## Removing all but the SIC codes
+```
 
 ## Collect all CIK (EDGAR company identifier) codes
+```{r}
 i = 1
 j = 1
 cikVEC <- NULL
@@ -57,8 +62,10 @@ for(j in 1:length(SICs)){
   }
 } ## Constructing a full CIK (EDGAR company identifier) list
 rm(list = ls()[!(ls() %in% c('cikVEC'))])
+```
 
 ## Collect all of the URL addresses containing 10-K forms
+```{r}
 k = 1
 tenkVEC <- NULL
 time = Sys.time()
@@ -89,13 +96,15 @@ print("End of Loop.")
 Sys.time() - time
 
 tenkVEC <- paste0("https://www.sec.gov",tenkVEC)
+```
 
 ## Crawling all of the 10-K forms using the exhaustive set of URLs for 10-K forms (for all of the companies registered on EDGAR)
+```{r}
 i = 1
 BD_dat <- NULL
 for(i in 1:length(TenKVEC)){
   res <- TenK_process(URL = tenkVEC[i], retrieve = "BD")
   BD_dat <- append(res, TenK_process(URL = filings10K2013$ftp_url[1], retrieve = "BD"))
 }
-
+```
 ### End of Code
