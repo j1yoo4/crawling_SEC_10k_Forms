@@ -1,30 +1,30 @@
 ## crawling_SEC_10k_Forms
-R script for crawling all the 10-k forms available on the web (EDGAR website)
+R script for crawling all the 10-k forms available on the web (EDGAR website)__
 
 ### Terminal and tmux:
-ssh <account_ID>@<Server_IP_Address> ## Connect to a server
-tmux attach -t <Session Number>  ## Attach a tmux session
-R  # Access R
+ssh <account_ID>@<Server_IP_Address> ## Connect to a server__
+tmux attach -t <Session Number>  ## Attach a tmux session__
+R  # Access R__
 
 ### R Session:
-if(!require(devtools)) install.packages("devtools")
-if(!require(data.table)) install.packages("data.table")
-if(!require(dplyr)) install.packages("dplyr")
-if(!require(stringi)) install.packages("stringi")
-if(!require(rvest)) install.packages("rvest")
-install_github("JasperHG90/TenK")
-require(TenK) ## Install and load relevant packages
+if(!require(devtools)) install.packages("devtools")__
+if(!require(data.table)) install.packages("data.table")__
+if(!require(dplyr)) install.packages("dplyr")__
+if(!require(stringi)) install.packages("stringi")__
+if(!require(rvest)) install.packages("rvest")__
+install_github("JasperHG90/TenK")__
+require(TenK) ## Install and load relevant packages__
 
 ## Collect all SIC codes
-sicLIST <- read_html("https://www.sec.gov/info/edgar/siccodes.htm")
-SICs <- sicLIST %>%
-  html_nodes("td") %>%
-  html_text()
-SICs <- SICs[19:length(SICs)]
-SICs <- SICs[!SICs %in% c("", " ")]
-SICs <- matrix(SICs, ncol = 4, byrow = T)
-SICs <- SICs[-nrow(SICs),] ## SIC Table
-SICs <- SICs[-1,1]## Removing all but the SIC codes
+sicLIST <- read_html("https://www.sec.gov/info/edgar/siccodes.htm")__
+SICs <- sicLIST %>%__
+  html_nodes("td") %>%__
+  html_text()__
+SICs <- SICs[19:length(SICs)]__
+SICs <- SICs[!SICs %in% c("", " ")]__
+SICs <- matrix(SICs, ncol = 4, byrow = T)__
+SICs <- SICs[-nrow(SICs),] ## SIC Table__
+SICs <- SICs[-1,1]## Removing all but the SIC codes__
 
 ## Collect all CIK (EDGAR company identifier) codes
 i = 1
