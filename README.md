@@ -1,10 +1,10 @@
-# crawling_SEC_10k_Forms
+## crawling_SEC_10k_Forms
 R script for crawling all the 10-k forms available on the web (EDGAR website)
 
 ### Terminal and tmux:
 ssh <account_ID>@<Server_IP_Address> ## Connect to a server
 tmux attach -t <Session Number>  ## Attach a tmux session
-R  ## Access R
+R  # Access R
 
 ### R Session:
 if(!require(devtools)) install.packages("devtools")
